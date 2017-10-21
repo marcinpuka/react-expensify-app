@@ -14,6 +14,8 @@ const Info = (props) => (
     </div>
 );
 
+
+// HOC
 const withAdminWarning = (WrappedComponent) => {
     return (props) => (
         <div>

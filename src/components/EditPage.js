@@ -1,8 +1,20 @@
 import React from 'react';
-import { BrowserRouter, Route, Switch, Link, NavLink } from 'react-router-dom';
+import {connect } from 'react-redux';
 
-const EditPage = (props) => (
-    <div>this is an edit page {props.match.params.id} </div>
-);
 
-export default EditPage;
+const EditExpensePage = (props) => {
+    console.log(props);
+    return (
+        <div>
+            Editin the expens wtih id of {props.match.params.id}
+        </div>    
+    );
+};
+
+const mapStateToProps = (state, props) => {
+    return {
+        expense: state.expenses.find((expense) => expense.id === props.match.params.id)
+    };
+};
+
+export default connect ()(EditExpensePage);
