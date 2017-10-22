@@ -1,12 +1,27 @@
 import React from 'react';
 import {connect } from 'react-redux';
+import ExpenseForm from './ExpenseForm';
+import {removeExpense, editExpense} from '../actions/expenses';
 
 
 const EditExpensePage = (props) => {
-    console.log(props);
+    // console.log(props);
     return (
         <div>
-            Editin the expens wtih id of {props.match.params.id}
+            <ExpenseForm 
+                expense={props.expense}
+                onSubmit={(expense) => {
+                    // Dispatch the action to edit the expense
+                    props.dispatch(editExpense(props.expense.id, expense));
+                    // Redirect to the dashboard
+                    props.history.push('/');
+                    console.log('updated', expense);
+                }}
+            />
+            <button  onClick={() => {
+                props.dispatch(removeExpense({id: props.expense.id}));
+                props.history.push('/');
+            }}> Remove </button>
         </div>    
     );
 };
@@ -17,4 +32,4 @@ const mapStateToProps = (state, props) => {
     };
 };
 
-export default connect ()(EditExpensePage);
+export default connect (mapStateToProps)(EditExpensePage);
